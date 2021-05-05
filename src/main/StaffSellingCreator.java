@@ -118,4 +118,5 @@ public class StaffSellingCreator {
         Optional<Item> itemOptional = MainRun.items.stream().filter(item -> item.getId() == id).findFirst();
         return itemOptional.orElse(null);
     }
+
 }

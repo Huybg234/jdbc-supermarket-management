@@ -91,7 +91,7 @@ public class Item {
         return APPLIANCES_ITEM;
     }
 
-    public void inputItemInfo(){
+    public void inputItemInfo() {
         this.setId(Item.AUTO_ID);
 
         boolean check = true;
@@ -121,7 +121,7 @@ public class Item {
                 System.out.print("Nhập số trong khoảng từ 1 đến 4! Vui lòng thử lại: ");
                 check = false;
             }
-            switch (choice){
+            switch (choice) {
                 case 1:
                     this.setItemGroup(Item.FASHION_ITEM);
                     check = true;
@@ -143,7 +143,7 @@ public class Item {
                     check = false;
                     break;
             }
-        }while (!check);
+        } while (!check);
         Item.AUTO_ID++;
     }
 
