@@ -1,15 +1,16 @@
 package main;
 
-import entity.Item;
 import stafftimesheet.SellingTimeSheet;
 import util.CollectionUtil;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Scanner;
 
 public class SortAndCalculator {
     public void sortStaffSellingTable(){
-        if (CollectionUtil.isEmpty(MainRun.staffSelling)) {
+        if (CollectionUtil.isEmpty(MainRun.selling)) {
             System.out.println("Nhập bảng phân công trước khi sắp xếp");
             return;
         }
@@ -49,23 +50,45 @@ public class SortAndCalculator {
         }
 
     private void sortByStaffName() {
-        MainRun.staffSelling.sort(Comparator.comparing(staffSelling -> staffSelling.getStaff().getName()));
+        MainRun.selling.sort(Comparator.comparing(staffSelling -> staffSelling.getStaff().getName()));
         MainRun.printStaffSelling();
     }
 
     private void sortByItemName() {
-        for (int i=0; i< MainRun.staffSelling.size(); i++){
-            for (int j= 0; j< MainRun.staffSelling.get(i).getSellingTimeSheets().size(); j++){
-                for (int k = j+1; k< MainRun.staffSelling.get(i).getSellingTimeSheets().size(); k++){
-                    if (MainRun.staffSelling.get(i).getSellingTimeSheets().get(j).getItem().getName()
-                            .compareTo(MainRun.staffSelling.get(i).getSellingTimeSheets().get(k).getItem().getName()) < 0){
-                        SellingTimeSheet tmp = MainRun.staffSelling.get(i).getSellingTimeSheets().get(j);
-                        MainRun.staffSelling.get(i).getSellingTimeSheets().set(j, MainRun.staffSelling.get(i).getSellingTimeSheets().get(k));
-                        MainRun.staffSelling.get(i).getSellingTimeSheets().set(k, tmp);
+        for (int i = 0; i< MainRun.selling.size(); i++){
+            for (int j = 0; j< MainRun.selling.get(i).getSellingTimeSheets().size(); j++){
+                for (int k = j+1; k< MainRun.selling.get(i).getSellingTimeSheets().size(); k++){
+                    if (MainRun.selling.get(i).getSellingTimeSheets().get(j).getItem().getName()
+                            .compareTo(MainRun.selling.get(i).getSellingTimeSheets().get(k).getItem().getName()) < 0){
+                        SellingTimeSheet tmp = MainRun.selling.get(i).getSellingTimeSheets().get(j);
+                        MainRun.selling.get(i).getSellingTimeSheets().set(j, MainRun.selling.get(i).getSellingTimeSheets().get(k));
+                        MainRun.selling.get(i).getSellingTimeSheets().set(k, tmp);
                     }
                 }
             }
         }
         MainRun.printStaffSelling();
+    }
+
+    public void salaryCashier(){
+        if (CollectionUtil.isEmpty(MainRun.selling)) {
+            System.out.println("Nhập bảng thống kê trước khi sắp xếp");
+            return;
+        }
+        for (int i=0; i< MainRun.selling.size() -1; i++){
+            System.out.println("Tính tiền công cho nhân viên "+MainRun.cashiers.get(i).getName());
+            List<Float> salaryTotal = new ArrayList<>();
+            for (int j=0; j < MainRun.selling.get(i).getSellingTimeSheets().size();j++){
+                float tmp = (MainRun.selling.get(i).getSellingTimeSheets().get(j).getItem().getCost()
+                        - MainRun.selling.get(i).getSellingTimeSheets().get(j).getItem().getImportCost())
+                        * 2/100;
+                salaryTotal.add(tmp);
+            }
+            float tmpSalary = 0;
+            for (Float aFloat : salaryTotal) {
+                tmpSalary += aFloat;
+            }
+            System.out.println(tmpSalary);
+        }
     }
 }

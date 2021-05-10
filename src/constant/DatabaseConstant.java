@@ -6,7 +6,7 @@ public class DatabaseConstant {
 
     public static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
 
-    public static final String USERNAME = "supermarket_management";
+    public static final String USERNAME = "supermarket";
 
     public static final String PASSWORD = "pass";
 

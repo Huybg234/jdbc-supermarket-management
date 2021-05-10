@@ -1,40 +1,40 @@
 package stafftimesheet;
 
-import entity.Item;
+import entity.Product;
 
 public class SellingTimeSheet {
-    private Item item;
-    private int soldItemNumber;
+    private Product product;
+    private int soldProductQuantity;
 
     public SellingTimeSheet() {
     }
 
-    public SellingTimeSheet(Item item, int soldItemNumber) {
-        this.item = item;
-        this.soldItemNumber = soldItemNumber;
+    public SellingTimeSheet(Product product, int soldProductQuantity) {
+        this.product = product;
+        this.soldProductQuantity = soldProductQuantity;
     }
 
-    public Item getItem() {
-        return item;
+    public Product getItem() {
+        return product;
     }
 
-    public void setItem(Item item) {
-        this.item = item;
+    public void setItem(Product product) {
+        this.product = product;
     }
 
-    public int getSoldItemNumber() {
-        return soldItemNumber;
+    public int getSoldProductQuantity() {
+        return soldProductQuantity;
     }
 
-    public void setSoldItemNumber(int soldItemNumber) {
-        this.soldItemNumber = soldItemNumber;
+    public void setSoldProductQuantity(int soldProductQuantity) {
+        this.soldProductQuantity = soldProductQuantity;
     }
 
     @Override
     public String toString() {
         return "SellingTimeSheet{" +
-                "item=" + item +
-                ", soldItemNumber=" + soldItemNumber +
+                "item=" + product +
+                ", soldItemNumber=" + soldProductQuantity +
                 '}';
     }
 }

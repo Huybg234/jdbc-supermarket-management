@@ -2,29 +2,29 @@ package entity;
 
 import java.util.Scanner;
 
-public class Item {
+public class Product {
 
     private int id;
     private String name;
-    private float buyPrice;
-    private float sellPrice;
-    private String itemGroup;
+    private float importCost;
+    private float cost;
+    private String category;
 
-    private static int AUTO_ID = 1000;
+    public static int AUTO_ID = 1000;
     private static final String FASHION_ITEM = "Hàng thời trang";
     private static final String CONSUMER_ITEM = "Hàng tiêu dùng";
     private static final String ELECTRICAL_ITEM = "Hàng điện máy";
     private static final String APPLIANCES_ITEM = "Hàng gia dụng";
 
-    public Item() {
+    public Product() {
     }
 
-    public Item(int id, String name, float buyPrice, float sellPrice, String itemGroup) {
+    public Product(int id, String name, float importCost, float cost, String category) {
         this.id = id;
         this.name = name;
-        this.buyPrice = buyPrice;
-        this.sellPrice = sellPrice;
-        this.itemGroup = itemGroup;
+        this.importCost = importCost;
+        this.cost = cost;
+        this.category = category;
     }
 
     public int getId() {
@@ -43,28 +43,28 @@ public class Item {
         this.name = name;
     }
 
-    public float getBuyPrice() {
-        return buyPrice;
+    public float getImportCost() {
+        return importCost;
     }
 
-    public void setBuyPrice(float buyPrice) {
-        this.buyPrice = buyPrice;
+    public void setImportCost(float importCost) {
+        this.importCost = importCost;
     }
 
-    public float getSellPrice() {
-        return sellPrice;
+    public float getCost() {
+        return cost;
     }
 
-    public void setSellPrice(float sellPrice) {
-        this.sellPrice = sellPrice;
+    public void setCost(float cost) {
+        this.cost = cost;
     }
 
-    public String getItemGroup() {
-        return itemGroup;
+    public String getCategory() {
+        return category;
     }
 
-    public void setItemGroup(String itemGroup) {
-        this.itemGroup = itemGroup;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public static int getAutoId() {
@@ -92,15 +92,41 @@ public class Item {
     }
 
     public void inputItemInfo(){
-        this.setId(Item.AUTO_ID);
+        this.setId(Product.AUTO_ID);
 
         boolean check = true;
         System.out.println("Nhập tên mặt hàng: ");
         this.name = new Scanner(System.in).nextLine();
         System.out.println("Nhập giá mua: ");
-        this.buyPrice = new Scanner(System.in).nextFloat();
+        do{
+            try {
+                this.importCost = new Scanner(System.in).nextFloat();
+                check = true;
+            } catch (Exception e) {
+                System.out.println("Không được có ký tự khác ngoài số!");
+                check = false;
+                continue;
+            }
+            if (this.importCost <=0 ){
+                System.out.println("Giá mua phải lớn hơn 0! Nhập lại");
+                check = false;
+            }
+        }while (!check);
         System.out.println("Nhập giá bán: ");
-        this.sellPrice = new Scanner(System.in).nextFloat();
+        do{
+            try {
+                this.cost = new Scanner(System.in).nextFloat();
+                check = true;
+            } catch (Exception e) {
+                System.out.println("Không được có ký tự khác ngoài số!");
+                check = false;
+                continue;
+            }
+            if (this.cost <=0 ){
+                System.out.println("Giá bán phải lớn hơn 0! Nhập lại");
+                check = false;
+            }
+        }while (!check);
         System.out.println("Nhập loại mặt hàng: ");
         System.out.println("1.Hàng thời trang");
         System.out.println("2.Hàng tiêu dùng");
@@ -123,19 +149,19 @@ public class Item {
             }
             switch (choice){
                 case 1:
-                    this.setItemGroup(Item.FASHION_ITEM);
+                    this.setCategory(Product.FASHION_ITEM);
                     check = true;
                     break;
                 case 2:
-                    this.setItemGroup(Item.CONSUMER_ITEM);
+                    this.setCategory(Product.CONSUMER_ITEM);
                     check = true;
                     break;
                 case 3:
-                    this.setItemGroup(Item.ELECTRICAL_ITEM);
+                    this.setCategory(Product.ELECTRICAL_ITEM);
                     check = true;
                     break;
                 case 4:
-                    this.setItemGroup(Item.APPLIANCES_ITEM);
+                    this.setCategory(Product.APPLIANCES_ITEM);
                     check = true;
                     break;
                 default:
@@ -144,7 +170,7 @@ public class Item {
                     break;
             }
         }while (!check);
-        Item.AUTO_ID++;
+        Product.AUTO_ID++;
     }
 
     @Override
@@ -152,9 +178,9 @@ public class Item {
         return "Item{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", buyPrice=" + buyPrice +
-                ", sellPrice=" + sellPrice +
-                ", itemGroup='" + itemGroup + '\'' +
+                ", buyPrice=" + importCost +
+                ", sellPrice=" + cost +
+                ", itemGroup='" + category + '\'' +
                 '}';
     }
 }

@@ -1,34 +1,35 @@
 package main;
 
-import entity.Item;
-import entity.Staff;
-import repository.ItemDAO;
-import repository.StaffDAO;
-import repository.StaffSellingDAO;
-import stafftimesheet.StaffSelling;
+import entity.Product;
+import entity.Cashier;
+import repository.ProductDAO;
+import repository.CashierDAO;
+import repository.SellingDAO;
+import stafftimesheet.Selling;
 import util.CollectionUtil;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
 public class MainRun {
-    public static List<Item> items = new ArrayList<>();
-    public static List<Staff> staffs = new ArrayList<>();
-    public static List<StaffSelling> staffSelling = new ArrayList<>();
+    public static List<Product> products = new ArrayList<>();
+    public static List<Cashier> cashiers = new ArrayList<>();
+    public static List<Selling> selling = new ArrayList<>();
 
-    public static final ItemDAO itemDAO =new ItemDAO();
-    public static final StaffDAO staffDAO = new StaffDAO();
-    public static final StaffSellingDAO staffSellingDAO = new StaffSellingDAO();
+    public static final ProductDAO PRODUCT_DAO =new ProductDAO();
+    public static final CashierDAO CASHIER_DAO = new CashierDAO();
+    public static final SellingDAO SELLING_DAO = new SellingDAO();
 
-    private static final ItemCreator itemCreator = new ItemCreator();
-    public static final StaffCreator staffCreator = new StaffCreator();
-    public static final StaffSellingCreator staffSellingCreator = new StaffSellingCreator();
+    private static final ProductCreator PRODUCT_CREATOR = new ProductCreator();
+    public static final CashierCreator CASHIER_CREATOR = new CashierCreator();
+    public static final CashierSellingCreator SELLING_CREATOR = new CashierSellingCreator();
     public static final SortAndCalculator sortAndCalculator = new SortAndCalculator();
 
     public static void main(String[] args) {
         System.out.println("Program is initializing ....");
-//        init();
+        init();
         System.out.println("Program is ready!");
         menu();
     }
@@ -51,6 +52,10 @@ public class MainRun {
                     break;
                 case 4:
                     sortAndCalculator.sortStaffSellingTable();
+                    break;
+                case 5:
+                    sortAndCalculator.salaryCashier();
+                    break;
                 case 6:
                     System.exit(0);
             }
@@ -58,8 +63,21 @@ public class MainRun {
     }
 
     private static void init() {
-        items = !CollectionUtil.isEmpty(itemDAO.getItems()) ? itemDAO.getItems() : new ArrayList<>();
-        staffs = !CollectionUtil.isEmpty(staffDAO.getStaffs()) ? staffDAO.getStaffs() : new ArrayList<>();
+        products = !CollectionUtil.isEmpty(PRODUCT_DAO.getItems()) ? PRODUCT_DAO.getItems() : new ArrayList<>();
+        if (CollectionUtil.isEmpty(products)) {
+            Product.AUTO_ID = 10000;
+        } else {
+            products.sort(Comparator.comparing(Product::getId));
+            Product.AUTO_ID = products.get(products.size() - 1).getId() + 1;
+        }
+        cashiers = !CollectionUtil.isEmpty(CASHIER_DAO.getStaffs()) ? CASHIER_DAO.getStaffs() : new ArrayList<>();
+        if (CollectionUtil.isEmpty(cashiers)) {
+            Cashier.AUTO_ID = 10000;
+        } else {
+            cashiers.sort(Comparator.comparing(Cashier::getId));
+            Cashier.AUTO_ID = cashiers.get(cashiers.size() - 1).getId() + 1;
+        }
+        selling = !CollectionUtil.isEmpty(SELLING_DAO.getSellingTimeSheet()) ? SELLING_DAO.getSellingTimeSheet() : new ArrayList();
     }
 
     public static int functionChoice() {
@@ -90,23 +108,23 @@ public class MainRun {
     }
 
     public static void createNewItem(){
-        itemCreator.createNewItem();
+        PRODUCT_CREATOR.createNewItem();
     }
     public static void printItem(){
-        items.forEach(System.out::println);
+        products.forEach(System.out::println);
     }
 
     public static void createNewStaff(){
-        staffCreator.createNewStaff();
+        CASHIER_CREATOR.createNewStaff();
     }
     public static void printStaff(){
-        staffs.forEach(System.out::println);
+        cashiers.forEach(System.out::println);
     }
 
     public static void createNewStaffSelling(){
-        staffSellingCreator.createStaffSellingTable();
+        SELLING_CREATOR.createStaffSellingTable();
     }
     public static void printStaffSelling(){
-        staffSelling.forEach(System.out::println);
+        selling.forEach(System.out::println);
     }
 }

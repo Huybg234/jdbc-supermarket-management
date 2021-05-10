@@ -1,12 +1,12 @@
 package main;
 
-import entity.Staff;
+import entity.Cashier;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class StaffCreator {
+public class CashierCreator {
     public void createNewStaff() {
         System.out.println("Nhập số lượng nhân viên muốn thêm mới: ");
         int staffQuantity = 0;
@@ -26,13 +26,13 @@ public class StaffCreator {
             }
         } while (!isValidStaffQuantity);
 
-        List<Staff> tempStaff = new ArrayList<>();
+        List<Cashier> tempCashier = new ArrayList<>();
         for (int i = 0; i < staffQuantity; i++) {
-            Staff staff = new Staff();
-            staff.inputInfo();
-            tempStaff.add(staff);
+            Cashier cashier = new Cashier();
+            cashier.inputInfo();
+            tempCashier.add(cashier);
         }
-        MainRun.staffs.addAll(tempStaff);
-        MainRun.staffDAO.insertNewStaff(tempStaff);
+        MainRun.cashiers.addAll(tempCashier);
+        MainRun.CASHIER_DAO.insertNewStaff(tempCashier);
     }
 }

@@ -1,8 +1,8 @@
 package main;
 
-import entity.Item;
+import entity.Product;
 import stafftimesheet.SellingTimeSheet;
-import stafftimesheet.StaffSelling;
+import stafftimesheet.Selling;
 import util.CollectionUtil;
 import util.ObjectUtil;
 
@@ -11,10 +11,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
-public class StaffSellingCreator {
+public class CashierSellingCreator {
 
     public boolean isValidItemAndStaff() {
-        return !CollectionUtil.isEmpty(MainRun.items) && !CollectionUtil.isEmpty(MainRun.staffs);
+        return !CollectionUtil.isEmpty(MainRun.products) && !CollectionUtil.isEmpty(MainRun.cashiers);
     }
 
     public void createStaffSellingTable() {
@@ -23,27 +23,30 @@ public class StaffSellingCreator {
             return;
         }
         boolean check = true;
-        List<StaffSelling> tempStaffSelling = new ArrayList<>();
-        for (int i = 0; i < MainRun.staffs.size(); i++) {
-            String staffName = MainRun.staffs.get(i).getName();
+        List<Selling> tempSelling = new ArrayList<>();
+        for (int i = 0; i < MainRun.cashiers.size(); i++) {
+            String staffName = MainRun.cashiers.get(i).getName();
             System.out.println("------Khai báo cho nhân viên " + staffName + "---------");
             System.out.println("Nhập số loại mặt hàng mà nhân viên " + staffName + " bán trong ngày: ");
             int staffSellingNumber = inputSellingTypeNumber();
+            if (staffSellingNumber == 0){
+                continue;
+            }
 
             List<SellingTimeSheet> sellingTimeSheets = new ArrayList<>();
             for (int j = 0; j < staffSellingNumber; j++) {
                 List<Integer> checkID = new ArrayList<>();
                 System.out.println("Nhập id mặt hàng thứ " + (j + 1) + " mà nhân viên " + staffName + " bán trong ngày: ");
-                Item item = inputItemId(checkID);
+                Product product = inputItemId(checkID);
                 System.out.println("Nhập số lượng loại mặt hàng này mà nhân viên bán được: ");
                 int sellingTotal = inputSellingNumber();
-                sellingTimeSheets.add(new SellingTimeSheet(item, sellingTotal));
+                sellingTimeSheets.add(new SellingTimeSheet(product, sellingTotal));
             }
-            StaffSelling staffSelling = new StaffSelling(MainRun.staffs.get(i), sellingTimeSheets);
-            tempStaffSelling.add(staffSelling);
-            MainRun.staffSelling.add(staffSelling);
+            Selling selling = new Selling(MainRun.cashiers.get(i), sellingTimeSheets);
+            tempSelling.add(selling);
+            MainRun.selling.add(selling);
         }
-        MainRun.staffSellingDAO.insertNewStaffSelling(tempStaffSelling);
+        MainRun.SELLING_DAO.insertNewStaffSelling(tempSelling);
     }
 
     private int inputSellingNumber() {
@@ -78,7 +81,7 @@ public class StaffSellingCreator {
                 isValidSellingNumber = false;
                 continue;
             }
-            if (staffSellingNumber <= 0 || staffSellingNumber > MainRun.items.size()) {
+            if (staffSellingNumber < 0 || staffSellingNumber > MainRun.products.size()) {
                 System.out.print("Số mặt hàng không được nhỏ hơn 0 và lớn hơn tổng số mặt hàng! Nhập lại: ");
                 isValidSellingNumber = false;
             }
@@ -86,7 +89,7 @@ public class StaffSellingCreator {
         return staffSellingNumber;
     }
 
-    private Item inputItemId(List<Integer> checkID) {
+    private Product inputItemId(List<Integer> checkID) {
         int itemId = 0;
         boolean isValidItemId = true;
         do {
@@ -107,15 +110,15 @@ public class StaffSellingCreator {
             checkID.add(itemId);
         } while (!isValidItemId);
 
-        Item item = searchItemId(itemId);
-        if (ObjectUtil.isEmpty(item)) {
+        Product product = searchItemId(itemId);
+        if (ObjectUtil.isEmpty(product)) {
             System.out.print("Không có id mặt hàng vừa nhập! Nhập lại: ");
         }
-        return item;
+        return product;
     }
 
-    public static Item searchItemId(int id) {
-        Optional<Item> itemOptional = MainRun.items.stream().filter(item -> item.getId() == id).findFirst();
+    public static Product searchItemId(int id) {
+        Optional<Product> itemOptional = MainRun.products.stream().filter(item -> item.getId() == id).findFirst();
         return itemOptional.orElse(null);
     }
 }

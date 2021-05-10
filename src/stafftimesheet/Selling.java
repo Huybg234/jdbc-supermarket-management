@@ -1,28 +1,28 @@
 package stafftimesheet;
 
-import entity.Staff;
+import entity.Cashier;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class StaffSelling {
-    private Staff staff;
+public class Selling {
+    private Cashier cashier;
     private List<SellingTimeSheet> sellingTimeSheets = new ArrayList<>();
 
-    public StaffSelling() {
+    public Selling() {
     }
 
-    public StaffSelling(Staff staff, List<SellingTimeSheet> sellingTimeSheets) {
-        this.staff = staff;
+    public Selling(Cashier cashier, List<SellingTimeSheet> sellingTimeSheets) {
+        this.cashier = cashier;
         this.sellingTimeSheets = sellingTimeSheets;
     }
 
-    public Staff getStaff() {
-        return staff;
+    public Cashier getStaff() {
+        return cashier;
     }
 
-    public void setStaff(Staff staff) {
-        this.staff = staff;
+    public void setStaff(Cashier cashier) {
+        this.cashier = cashier;
     }
 
     public List<SellingTimeSheet> getSellingTimeSheets() {
@@ -36,7 +36,7 @@ public class StaffSelling {
     @Override
     public String toString() {
         return "StaffSelling{" +
-                "staff=" + staff +
+                "staff=" + cashier +
                 ", sellingTimeSheets=" + sellingTimeSheets +
                 '}';
     }

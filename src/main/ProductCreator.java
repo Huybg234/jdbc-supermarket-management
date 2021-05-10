@@ -1,12 +1,12 @@
 package main;
 
-import entity.Item;
+import entity.Product;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class ItemCreator {
+public class ProductCreator {
     public void createNewItem() {
         System.out.println("Nhập số lượng mặt hàng muốn thêm mới: ");
         int itemQuantity = 0;
@@ -26,13 +26,13 @@ public class ItemCreator {
             }
         } while (!isValidItemQuantity);
 
-        List<Item> tempItem = new ArrayList<>();
+        List<Product> tempProduct = new ArrayList<>();
         for (int i = 0; i < itemQuantity; i++){
-            Item item = new Item();
-            item.inputItemInfo();
-            tempItem.add(item);
+            Product product = new Product();
+            product.inputItemInfo();
+            tempProduct.add(product);
         }
-        MainRun.items.addAll(tempItem);
-        MainRun.itemDAO.insertNewItem(tempItem);
+        MainRun.products.addAll(tempProduct);
+        MainRun.PRODUCT_DAO.insertNewItem(tempProduct);
     }
 }
