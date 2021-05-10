@@ -9,8 +9,13 @@ import java.util.List;
 import java.util.Scanner;
 
 public class SortAndCalculator {
+<<<<<<< HEAD
     public void sortStaffSellingTable(){
         if (CollectionUtil.isEmpty(MainRun.selling)) {
+=======
+    public void sortStaffSellingTable() {
+        if (CollectionUtil.isEmpty(MainRun.staffSelling)) {
+>>>>>>> d7a4e3e1230d6cc02df01bfcb5b02846181c6d81
             System.out.println("Nhập bảng phân công trước khi sắp xếp");
             return;
         }
@@ -47,7 +52,7 @@ public class SortAndCalculator {
                     return;
             }
         } while (true);
-        }
+    }
 
     private void sortByStaffName() {
         MainRun.selling.sort(Comparator.comparing(staffSelling -> staffSelling.getStaff().getName()));
@@ -55,6 +60,7 @@ public class SortAndCalculator {
     }
 
     private void sortByItemName() {
+<<<<<<< HEAD
         for (int i = 0; i< MainRun.selling.size(); i++){
             for (int j = 0; j< MainRun.selling.get(i).getSellingTimeSheets().size(); j++){
                 for (int k = j+1; k< MainRun.selling.get(i).getSellingTimeSheets().size(); k++){
@@ -67,6 +73,24 @@ public class SortAndCalculator {
                 }
             }
         }
+=======
+        MainRun.staffSelling.forEach(staffSelling ->
+                staffSelling.getSellingTimeSheets().sort(Comparator.comparing(sellingTimeSheet -> sellingTimeSheet.getItem().getName()))
+        );
+
+//        for (int i = 0; i < MainRun.staffSelling.size(); i++) {
+//            for (int j = 0; j < MainRun.staffSelling.get(i).getSellingTimeSheets().size(); j++) {
+//                for (int k = j + 1; k < MainRun.staffSelling.get(i).getSellingTimeSheets().size(); k++) {
+//                    if (MainRun.staffSelling.get(i).getSellingTimeSheets().get(j).getItem().getName()
+//                            .compareTo(MainRun.staffSelling.get(i).getSellingTimeSheets().get(k).getItem().getName()) < 0) {
+//                        SellingTimeSheet tmp = MainRun.staffSelling.get(i).getSellingTimeSheets().get(j);
+//                        MainRun.staffSelling.get(i).getSellingTimeSheets().set(j, MainRun.staffSelling.get(i).getSellingTimeSheets().get(k));
+//                        MainRun.staffSelling.get(i).getSellingTimeSheets().set(k, tmp);
+//                    }
+//                }
+//            }
+//        }
+>>>>>>> d7a4e3e1230d6cc02df01bfcb5b02846181c6d81
         MainRun.printStaffSelling();
     }
 

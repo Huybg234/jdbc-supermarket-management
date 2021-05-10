@@ -91,8 +91,13 @@ public class Product {
         return APPLIANCES_ITEM;
     }
 
+<<<<<<< HEAD:src/entity/Product.java
     public void inputItemInfo(){
         this.setId(Product.AUTO_ID);
+=======
+    public void inputItemInfo() {
+        this.setId(Item.AUTO_ID);
+>>>>>>> d7a4e3e1230d6cc02df01bfcb5b02846181c6d81:src/entity/Item.java
 
         boolean check = true;
         System.out.println("Nhập tên mặt hàng: ");
@@ -147,7 +152,7 @@ public class Product {
                 System.out.print("Nhập số trong khoảng từ 1 đến 4! Vui lòng thử lại: ");
                 check = false;
             }
-            switch (choice){
+            switch (choice) {
                 case 1:
                     this.setCategory(Product.FASHION_ITEM);
                     check = true;
@@ -169,8 +174,13 @@ public class Product {
                     check = false;
                     break;
             }
+<<<<<<< HEAD:src/entity/Product.java
         }while (!check);
         Product.AUTO_ID++;
+=======
+        } while (!check);
+        Item.AUTO_ID++;
+>>>>>>> d7a4e3e1230d6cc02df01bfcb5b02846181c6d81:src/entity/Item.java
     }
 
     @Override

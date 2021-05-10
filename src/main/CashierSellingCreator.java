@@ -121,4 +121,5 @@ public class CashierSellingCreator {
         Optional<Product> itemOptional = MainRun.products.stream().filter(item -> item.getId() == id).findFirst();
         return itemOptional.orElse(null);
     }
+
 }
